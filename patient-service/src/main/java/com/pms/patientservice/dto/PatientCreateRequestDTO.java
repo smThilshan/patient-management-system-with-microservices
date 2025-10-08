@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
-public class PatientRequestDTO {
+public class PatientCreateRequestDTO {
 
     @NotBlank(message = "Name is mandatory")
     @Size(max = 100, message = "Name cannot be exceed 100 characters")

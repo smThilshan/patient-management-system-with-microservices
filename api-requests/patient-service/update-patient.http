@@ -1,0 +1,12 @@
+### PUT uodate request to existing patient
+PUT http://localhost:4000/patients/223e4567-e89b-12d3-a456-426614174014
+Content-Type: application/json
+
+{
+  "name" : "Thilshan Mohamed",
+  "email": "thilshan@gmail.com",
+  "address": "Main street, kalpitiya",
+  "dateOfBirth": "2002-01-20"
+
+
+}
