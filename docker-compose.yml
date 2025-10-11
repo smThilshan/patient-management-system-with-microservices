@@ -1,0 +1,39 @@
+version: "3.9"
+
+networks:
+  internal:
+    external: true  # optional, you can remove this line if not needed
+
+services:
+  patient-service-db:
+    image: postgres:latest
+    container_name: patient-service-db
+    environment:
+      POSTGRES_USER: admin_user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: db
+    volumes:
+      - patient-db-data:/var/lib/postgresql/data
+    networks:
+      - internal
+    ports:
+      - "5433:5432"
+
+  patient-service:
+    build: ./patient-service
+    container_name: patient-service
+    depends_on:
+      - patient-service-db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://patient-service-db:5432/db
+      SPRING_DATASOURCE_USERNAME: admin_user
+      SPRING_DATASOURCE_PASSWORD: password
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_SQL_INIT_MODE: always
+    ports:
+      - "4000:4000"
+    networks:
+      - internal
+
+volumes:
+  patient-db-data:
