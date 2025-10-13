@@ -30,10 +30,28 @@ services:
       SPRING_DATASOURCE_PASSWORD: password
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
       SPRING_SQL_INIT_MODE: always
+      BILLING_SERVICE_ADDRESS: billing-service
+      BILLING_SERVICE_GRPC_PORT: 9001
     ports:
       - "4000:4000"
     networks:
       - internal
+
+  billing-service:
+    build:
+      context: ./billing-service
+      dockerfile: Dockerfile
+    image: billing-service:latest
+    container_name: billing-service
+    environment:
+      SERVER_PORT: 4001
+      GRPC_PORT: 9001
+    ports:
+      - "4002:4001"
+      - "9002:9001"
+    networks:
+      - internal
+
 
 volumes:
   patient-db-data:
